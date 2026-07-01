@@ -2,6 +2,7 @@ package com.example.justchat;
 
 import com.google.genai.Client;
 import com.google.genai.types.GenerateContentConfig;
+import com.google.genai.types.GenerateContentResponse;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -56,9 +57,8 @@ public class ChatServlet extends HttpServlet {
         try(Client client = Client.builder()
                 .apiKey(apikey)
                 .build()){
-            client.models.generateContent(model, message, config);
+            GenerateContentResponse response = client.models.generateContent(model, message, config);
+            return response.text();
         }
-
-        return message;
     }
 }
